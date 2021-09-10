@@ -1,0 +1,8 @@
+name: highwide
+description: A generated Helm Chart for highwide 
+version: 0.1.0
+apiVersion: v1
+keywords:
+  - highwide
+sources:
+home:

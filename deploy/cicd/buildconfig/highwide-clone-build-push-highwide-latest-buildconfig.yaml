@@ -1,0 +1,32 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  creationTimestamp: null
+  name: highwide-clone-build-push-highwide-latest
+spec:
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: highwide-latest:latest
+  postCommit: {}
+  resources: {}
+  source:
+    contextDir: '<TODO: insert path to the directory containing Dockerfile>'
+    git:
+      ref: main
+      uri: '<TODO: insert git repo url>'
+    sourceSecret:
+      name: highwide-git-repo-generic
+    type: Git
+  strategy:
+    dockerStrategy:
+      dockerfilePath: '<TODO: insert path to the Dockerfile>'
+    type: Docker
+  triggers:
+    - generic:
+        secretReference:
+          name: highwide-web-hook-highwide-latest
+      type: Generic
+status:
+  lastVersion: 0

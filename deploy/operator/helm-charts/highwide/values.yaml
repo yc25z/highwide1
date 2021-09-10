@@ -1,0 +1,8 @@
+ingresshost: highwide.apps.okdtest01.nscorp.com
+registryurl: quay.io
+registrynamespace: yc25z
+services:
+  highwide:
+    containers:
+      highwide:
+        imagetag: latest

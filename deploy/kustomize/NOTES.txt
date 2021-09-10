@@ -1,0 +1,8 @@
+
+
+
+The services are accessible on the following paths:
+highwide : http://highwide.apps.okdtest01.nscorp.com/
+
+
+

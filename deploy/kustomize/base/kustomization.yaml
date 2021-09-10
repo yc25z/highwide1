@@ -1,0 +1,5 @@
+resources:
+  - highwide-deploymentconfig.yaml
+  - highwide-route.yaml
+  - highwide-service.yaml
+  - highwide-latest-imagestream.yaml

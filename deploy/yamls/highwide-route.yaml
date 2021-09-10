@@ -1,0 +1,19 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  creationTimestamp: null
+  labels:
+    move2kube.konveyor.io/service: highwide
+  name: highwide
+spec:
+  host: highwide.apps.okdtest01.nscorp.com
+  path: /
+  port:
+    targetPort: port-8080
+  to:
+    kind: Service
+    name: highwide
+    weight: 1
+status:
+  ingress:
+    - {}

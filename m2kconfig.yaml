@@ -1,0 +1,23 @@
+move2kube:
+  containerization:
+    types:
+      - NewDockerfile
+  services:
+    highwide:
+      containerization:
+        target: m2kassets/dockerfiles/java-war-jboss
+      enable: true
+      expose: true
+      urlpath: /
+  sources:
+    types:
+      - Containerize
+  target:
+    clustertype: Openshift
+    imageregistry:
+      logintype: No authentication
+      namespace: yc25z
+      url: quay.io
+    ingress:
+      host: apps.okdtest01.nscorp.com
+      tls: ""

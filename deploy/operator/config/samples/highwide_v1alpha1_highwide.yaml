@@ -1,0 +1,16 @@
+apiVersion: highwide.io/v1alpha1
+kind: Highwide
+metadata:
+  name: highwide-sample
+spec:
+  # Default values copied from <project_dir>/helm-charts/highwide/values.yaml
+  ingresshost: highwide.apps.okdtest01.nscorp.com
+  registrynamespace: yc25z
+  registryurl: quay.io
+  services:
+    highwide:
+      containers:
+        highwide:
+          imagetag: latest
+  
+  

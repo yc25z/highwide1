@@ -1,0 +1,15 @@
+patches:
+  - path: highwide-deploymentconfig.yaml
+    target:
+      group: apps.openshift.io
+      version: v1
+      kind: DeploymentConfig
+      name: highwide
+  - path: highwide-route.yaml
+    target:
+      group: route.openshift.io
+      version: v1
+      kind: Route
+      name: highwide
+resources:
+  - ../../base

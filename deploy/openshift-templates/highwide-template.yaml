@@ -1,0 +1,118 @@
+apiVersion: template.openshift.io/v1
+kind: Template
+metadata:
+  creationTimestamp: null
+  name: highwide
+objects:
+  - apiVersion: apps.openshift.io/v1
+    kind: DeploymentConfig
+    metadata:
+      annotations:
+        move2kube.konveyor.io/service.expose: "true"
+      creationTimestamp: null
+      labels:
+        move2kube.konveyor.io/service: highwide
+      name: highwide
+    spec:
+      replicas: 2
+      selector:
+        move2kube.konveyor.io/service: highwide
+      strategy:
+        resources: {}
+      template:
+        metadata:
+          annotations:
+            move2kube.konveyor.io/service.expose: "true"
+          creationTimestamp: null
+          labels:
+            move2kube.konveyor.io/service: highwide
+          name: highwide
+        spec:
+          containers:
+            - image: quay.io/yc25z/highwide:latest
+              imagePullPolicy: Always
+              name: highwide
+              ports:
+                - containerPort: 8080
+              resources: {}
+          restartPolicy: Always
+      test: false
+      triggers:
+        - type: ConfigChange
+        - imageChangeParams:
+            automatic: true
+            containerNames:
+              - highwide
+            from:
+              kind: ImageStreamTag
+              name: highwide-latest:latest
+          type: ImageChange
+    status:
+      availableReplicas: 0
+      latestVersion: 0
+      observedGeneration: 0
+      replicas: 0
+      unavailableReplicas: 0
+      updatedReplicas: 0
+  - apiVersion: route.openshift.io/v1
+    kind: Route
+    metadata:
+      creationTimestamp: null
+      labels:
+        move2kube.konveyor.io/service: highwide
+      name: highwide
+    spec:
+      host: highwide.apps.okdtest01.nscorp.com
+      path: /
+      port:
+        targetPort: port-8080
+      to:
+        kind: Service
+        name: highwide
+        weight: 1
+    status:
+      ingress:
+        - {}
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      annotations:
+        move2kube.konveyor.io/service.expose: "true"
+      creationTimestamp: null
+      labels:
+        move2kube.konveyor.io/service: highwide
+      name: highwide
+    spec:
+      ports:
+        - name: port-8080
+          port: 8080
+          protocol: TCP
+          targetPort: 8080
+      selector:
+        move2kube.konveyor.io/service: highwide
+      sessionAffinity: None
+      type: ClusterIP
+    status:
+      loadBalancer: {}
+  - apiVersion: image.openshift.io/v1
+    kind: ImageStream
+    metadata:
+      creationTimestamp: null
+      labels:
+        move2kube.konveyor.io/service: highwide-latest
+      name: highwide-latest
+    spec:
+      lookupPolicy:
+        local: false
+      tags:
+        - annotations: null
+          from:
+            kind: DockerImage
+            name: quay.io/yc25z/highwide:latest
+          generation: null
+          importPolicy: {}
+          name: latest
+          referencePolicy:
+            type: ""
+    status:
+      dockerImageRepository: ""

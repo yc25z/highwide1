@@ -1,0 +1,24 @@
+# permissions for end users to edit highwides.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: highwide-editor-role
+rules:
+- apiGroups:
+  - highwide.io
+  resources:
+  - highwides
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - highwide.io
+  resources:
+  - highwides/status
+  verbs:
+  - get

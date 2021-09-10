@@ -1,0 +1,20 @@
+# permissions for end users to view highwides.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: highwide-viewer-role
+rules:
+- apiGroups:
+  - highwide.io
+  resources:
+  - highwides
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - highwide.io
+  resources:
+  - highwides/status
+  verbs:
+  - get

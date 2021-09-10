@@ -1,0 +1,123 @@
+apiVersion: move2kube.konveyor.io/v1alpha1
+kind: QACache
+spec:
+  solutions:
+    - id: move2kube.sources.types
+      type: MultiSelect
+      description: 'Select all source types that you are interested in:'
+      hints:
+        - Services that don't support any of the source types you are interested in will be ignored.
+      options:
+        - Containerize
+      default:
+        - Containerize
+      answer:
+        - Containerize
+    - id: move2kube.services.[].enable
+      type: MultiSelect
+      description: 'Select all services that are needed:'
+      hints:
+        - The services unselected here will be ignored.
+      options:
+        - highwide
+      default:
+        - highwide
+      answer:
+        - highwide
+    - id: move2kube.containerization.types
+      type: MultiSelect
+      description: 'Select all containerization modes that is of interest:'
+      hints:
+        - Services that don't support any of the containerization techniques you are interested in will be ignored.
+      options:
+        - NewDockerfile
+      default:
+        - NewDockerfile
+      answer:
+        - NewDockerfile
+    - id: move2kube.services."highwide".containerization.target
+      type: Select
+      description: 'Select containerization target for service highwide:'
+      hints:
+        - Choose the target that should be used for containerization.
+      options:
+        - m2kassets/dockerfiles/java-war-jboss
+        - m2kassets/dockerfiles/java-war-liberty
+        - m2kassets/dockerfiles/java-war-tomcat
+      default: m2kassets/dockerfiles/java-war-jboss
+      answer: m2kassets/dockerfiles/java-war-jboss
+    - id: move2kube.target.clustertype
+      type: Select
+      description: 'Choose the cluster type:'
+      hints:
+        - Choose the cluster type you would like to target
+      options:
+        - IBM-Openshift
+        - Kubernetes
+        - Openshift
+        - AWS-EKS
+        - Azure-AKS
+        - GCP-GKE
+        - IBM-IKS
+      default: Kubernetes
+      answer: Openshift
+    - id: move2kube.services.[].expose
+      type: MultiSelect
+      description: 'Select all services that should be exposed:'
+      hints:
+        - Exposed services will be reachable from outside the cluster.
+      options:
+        - highwide
+      default:
+        - highwide
+      answer:
+        - highwide
+    - id: move2kube.services."highwide".urlpath
+      type: Input
+      description: What URL/path should we expose the service highwide on?
+      hints:
+        - Since there's only one exposed service, the default path is /
+      default: /
+      answer: /
+    - id: move2kube.target.imageregistry.url
+      type: Select
+      description: 'Enter the name of the image registry : '
+      hints:
+        - You can always change it later by changing the yamls.
+      options:
+        - Other (specify custom option)
+        - quay.io
+      default: quay.io
+      answer: quay.io
+    - id: move2kube.target.imageregistry.namespace
+      type: Input
+      description: 'Enter the namespace where the new images should be pushed : '
+      hints:
+        - 'Ex : highwide'
+      default: highwide
+      answer: yc25z
+    - id: move2kube.target.imageregistry.logintype
+      type: Select
+      description: '[quay.io] What type of container registry login do you want to use?'
+      hints:
+        - Docker login from config mode, will use the default config from your local machine.
+      options:
+        - Use existing pull secret
+        - No authentication
+        - UserName/Password
+      default: No authentication
+      answer: No authentication
+    - id: move2kube.target.ingress.host
+      type: Input
+      description: Provide the ingress host domain
+      hints:
+        - Ingress host domain is part of service URL
+      default: highwide.com
+      answer: apps.okdtest01.nscorp.com
+    - id: move2kube.target.ingress.tls
+      type: Input
+      description: Provide the TLS secret for ingress
+      hints:
+        - Enter TLS secret name
+      default: ""
+      answer: ""
